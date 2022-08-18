@@ -15,15 +15,12 @@ namespace Product.BL
     {
 
         private uttaraon_neerajEntities objuttaraon_neerajEntities;
-
-
+         
         public ProductRepository()    //constructor 
         {
             objuttaraon_neerajEntities = new uttaraon_neerajEntities();
         }
-
-
-
+               
         public int AddBook(ProductModel productModel)
         {
 
@@ -55,7 +52,6 @@ namespace Product.BL
                                                                 Quantity=objProduct.Quantity
                                                             }).ToList();
                 return listofProducts;
-
             }
 
             catch(Exception ex)
@@ -74,13 +70,7 @@ namespace Product.BL
 
         public ProductModel GetProductById(int id)
         {
-            //ProductModel listofProducts = (from objProduct in objuttaraon_neerajEntities.Products
-            //                                            select new ProductModel()
-            //                                            {
-            //                                                Name = objProduct.Name,
-            //                                                Price = objProduct.Price,
-            //                                                id = objProduct.id
-            //    
+
             ProductModel listofProducts = new ProductModel();
             return listofProducts;
         }                               
