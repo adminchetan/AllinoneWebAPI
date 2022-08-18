@@ -1,4 +1,6 @@
-﻿using System;
+﻿using product.IBL;
+using Product.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,9 +11,19 @@ namespace AllinOneAPI.Controllers
 {
     public class ValuesController : ApiController
     {
+        private IProductRepository iproductRepository;
+
+        public  ValuesController(IProductRepository _productRepository)
+        {
+            
+            iproductRepository = _productRepository;
+        }
+    
+        
         // GET api/values
         public IEnumerable<string> Get()
         {
+            IEnumerable<ProductModel> listProductModel = iproductRepository.GetAllBooks();
             return new string[] { "value1", "value2" };
         }
 
