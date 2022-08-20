@@ -2,12 +2,37 @@
     ViewBag.Title = "GetAllData";
 }
 
-<h2>GetAllData</h2>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<div class="container">
-    <h2>Striped Rows</h2>
-    <p>The .table-striped class adds zebra-stripes to a table:</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<div class="alert alert-success">
+    <strong>Input Form!</strong> Please Fill The Data Below
+</div>
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>    <input type="text" class="form-control" id="usr"></td>
+                <td> <input type="password" class="form-control" id="pwd"></td>
+                <td> <input type="password" class="form-control" id="pwd"></td>
+            </tr>
+            <tr><td>
+                <input type="button" class="btn btn-success" value="Submit Data"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info">
+        <strong>Info!</strong> Items Currently in database
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -17,11 +42,8 @@
                 <th>Quantity</th>
             </tr>
         </thead>
-        <tbody id="mytblbody">
-       
-        </tbody>
+        <tbody id="mytblbody"></tbody>
     </table>
-</div>
 
 
 
@@ -34,8 +56,7 @@
             success: function (data) {
 
                 debugger;
-                for (var i = 0; i <= data.length; i++)
-                {
+                for (var i = 0; i <= data.length; i++) {
 
                     $("#mytblbody").append('<tr><td>' + data[i].id + '</td><td>' + data[i].Name + '</td><td>' + data[i].Price + '</td><td>' + data[i].Quantity + '</td></tr>');
                     //alert(data[i].Name);
