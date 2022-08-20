@@ -15,16 +15,20 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
+             
+                <th>Description</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>    <input type="text" class="form-control" id="usr"></td>
-                <td> <input type="password" class="form-control" id="pwd"></td>
-                <td> <input type="password" class="form-control" id="pwd"></td>
+                <td> <input type="text" class="form-control" id="Name"></td>
+                <td> <input type="text" class="form-control" id="Price"></td>
+                <td> <input type="text" class="form-control" id="Quantity"></td>
+          
+                <td> <input type="text" class="form-control" id="Description"></td>
             </tr>
             <tr><td>
-                <input type="button" class="btn btn-success" value="Submit Data"/>
+                <input type="button" class="btn btn-success" value="Submit Data" id="Submitbtn"/>
                 </td>
             </tr>
         </tbody>
@@ -40,6 +44,8 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Status</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody id="mytblbody"></tbody>
@@ -48,32 +54,95 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
+
+    setTimeout(refreshdata, 1000);
+    //$(document).ready(function ()
+    //{
+    //    $.ajax({
+    //        url: '/api/data',
+    //        type: 'Get',
+    //        accept: 'application/json',
+    //        success: function (data) {
+
+            
+    //            for (var i = 0; i <= data.length; i++) {
+
+    //                $("#mytblbody").append('<tr><td>' + data[i].id + '</td><td>' + data[i].Name + '</td><td>' + data[i].Price + '</td><td>' + data[i].Quantity + '</td>' + '<td>' + data[i].Status + '</td><' + '<td>' + data[i].Description + '</td></tr>');
+    //                //alert(data[i].Name);
+    //            }
+    //        },
+
+    //        error: function (xhr) {
+    //            console.log("something went wrong!!!")
+    //        }
+    //    });
+    //});
+
+    function refreshdata() {
         $.ajax({
             url: '/api/data',
             type: 'Get',
             accept: 'application/json',
             success: function (data) {
 
-                debugger;
-                for (var i = 0; i <= data.length; i++) {
+                $("#mytblbody").empty();
+                for (var i = 0; i <= data.length; i++)
+                {
 
-                    $("#mytblbody").append('<tr><td>' + data[i].id + '</td><td>' + data[i].Name + '</td><td>' + data[i].Price + '</td><td>' + data[i].Quantity + '</td></tr>');
+                    $("#mytblbody").append('<tr><td>' + data[i].id + '</td><td>' + data[i].Name + '</td><td>' + data[i].Price + '</td><td>' + data[i].Quantity + '</td>' + '<td>' + data[i].Status + '</td><' + '<td>' + data[i].Description + '</td></tr>');
                     //alert(data[i].Name);
                 }
-
-
-
-
-
             },
 
             error: function (xhr) {
                 console.log("something went wrong!!!")
             }
         });
+    }
+
+
+    $("#Submitbtn").click(function ()
+    {
+        //alert("button clicked");
+       
+        //var product = new object();
+        //product.Name = $("#Name").val();
+        //product.Price = $("#Price").val();
+        //product.Quantity = $("#Quantity").val();
+        //product.Description = $("#Description").val();
+        $.ajax({
+            url: '/api/data',
+            type: 'post',
+            accept: 'application/json',
+            data: {
+                Name: $("#Name").val(),
+                Price: $("#Price").val(),
+                Quantity: $("#Quantity").val(),
+                Description: $("#Description").val()
+            },
+            success: function (data) {
+                //alert("data submitted succesfully!!");
+                refreshdata();
+
+            },
+
+            error: function (xhr) {
+                console.log("something went wrong!!!")
+            }
+
+
+
+        });
+
+
+
     });
+
+
+
+
 </script>
+
 
 
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace AllinOneAPI.Controllers
 {
     public class HomeController : Controller
@@ -28,17 +29,19 @@ namespace AllinOneAPI.Controllers
             return View();
         }
 
-
-        public ActionResult AddBook()
+        [HttpPost]
+        public ActionResult AddBook(ProductModel productModel)
         {
+
+           
 
             ProductModel objProductmodel = new ProductModel()
             {
-                Name = "NEw Book From Controller",
-                Price = 100,
-                Quantity = 50,
+                Name = productModel.Name,
+                Price = productModel.Price,
+                Quantity = productModel.Quantity,
                 Status = true,
-                Description = "This Book Has Been Added From Controller Call"
+                Description = productModel.Description
             };
             int result = iproductRepository.AddBook(objProductmodel);
             return View();

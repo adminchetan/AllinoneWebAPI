@@ -28,5 +28,37 @@ namespace AllinOneAPI.Controllers
             IEnumerable<ProductModel> listProductModel = _iproductRepository.GetAllBooks();
             return listProductModel;
         }
+
+      public HttpResponseMessage Postdata(ProductModel productModel)
+        {
+            try
+            {
+                ProductModel objProductmodel = new ProductModel()
+                {
+                    Name = productModel.Name,
+                    Price = productModel.Price,
+                    Quantity = productModel.Quantity,
+                    Status = true,
+                    Description = productModel.Description
+                };
+                int result = _iproductRepository.AddBook(objProductmodel);
+               
+
+                var response = Request.CreateResponse(HttpStatusCode.Created);
+
+                return response;
+            }
+
+            catch (Exception ex)
+            {
+                var response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "The Request not Successed");
+                return response;
+            }
+        
+
+         
+        }
+
+
     }
 }
