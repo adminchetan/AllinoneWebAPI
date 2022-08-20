@@ -24,7 +24,7 @@ namespace AllinOneAPI.Controllers
 
         // GET api/values
         public IEnumerable<ProductModel> Get()
-        {
+     {
             IEnumerable<ProductModel> listProductModel = _iproductRepository.GetAllBooks();
             return listProductModel;
         }

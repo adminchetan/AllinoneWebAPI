@@ -43,5 +43,13 @@ namespace AllinOneAPI.Controllers
             int result = iproductRepository.AddBook(objProductmodel);
             return View();
         }
+
+
+        public ActionResult GetAllData()
+        {
+            return View();
+        }
+
+
     }
 }
