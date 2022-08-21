@@ -5,85 +5,119 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <div class="alert alert-success">
     <strong>Input Form!</strong> Please Fill The Data Below
 </div>
 
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-             
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td> <input type="text" class="form-control" id="Name"></td>
-                <td> <input type="text" class="form-control" id="Price"></td>
-                <td> <input type="text" class="form-control" id="Quantity"></td>
-          
-                <td> <input type="text" class="form-control" id="Description"></td>
-            </tr>
-            <tr><td>
-                <input type="button" class="btn btn-success" value="Submit Data" id="Submitbtn"/>
-                </td>   
-                <tr style="background:#ffffff;">
-        <td>
-            <img src="~/Content/images/loading.gif" class="img-rounded" id="loader" alt="Cinque Terre" width="150px;" hidden>
-        </td>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+
+            <th>Description</th>
         </tr>
-            </tr>
-        </tbody>
-    </table>
+    </thead>
+    <tbody>
+        <tr>
+            <td> <input type="text" class="form-control" id="Name"></td>
+            <td> <input type="text" class="form-control" id="Price"></td>
+            <td> <input type="text" class="form-control" id="Quantity"></td>
 
-    <div class="alert alert-info">
-        <strong>Info!</strong> Items Currently in database
+            <td> <input type="text" class="form-control" id="Description"></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" class="btn btn-success" value="Submit Data" id="Submitbtn" />
+            </td>
+        <tr style="background:#ffffff;">
+            <td>
+                <img src="~/Content/images/loading.gif" class="img-rounded" id="loader" alt="Cinque Terre" width="150px;" hidden>
+            </td>
+        </tr>
+        </tr>
+    </tbody>
+</table>
+
+<div class="alert alert-info">
+    <strong>Info!</strong> Items Currently in database
+</div>
+<table class="table  table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="mytblbody"></tbody>
+</table>
+@*<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update</button>
+
+<!-- Modal -->*@
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Details!!</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> <input type="text" class="form-control" id="txtName"></td>
+                            <td> <input type="text" class="form-control" id="txtPrice"></td>
+                            <td> <input type="text" class="form-control" id="txtQuantity"></td>
+
+                            <td> <input type="text" class="form-control" id="txtDescription"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="button" class="btn btn-success" value="Update Data" id="Updatebtn" />
+                            </td>
+                        <tr style="background:#ffffff;">
+                            <td>
+                                <img src="~/Content/images/loading.gif" class="img-rounded" id="loader" alt="Cinque Terre" width="150px;" hidden>
+                            </td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Status</th>
-                <th>Description</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="mytblbody"></tbody>
-    </table>
-
-
+</div>
 
 <script type="text/javascript">
 
+    var editid = null;
+
+
     setTimeout(refreshdata, 1000);
-    //$(document).ready(function ()
-    //{
-    //    $.ajax({
-    //        url: '/api/data',
-    //        type: 'Get',
-    //        accept: 'application/json',
-    //        success: function (data) {
-
-            
-    //            for (var i = 0; i <= data.length; i++) {
-
-    //                $("#mytblbody").append('<tr><td>' + data[i].id + '</td><td>' + data[i].Name + '</td><td>' + data[i].Price + '</td><td>' + data[i].Quantity + '</td>' + '<td>' + data[i].Status + '</td><' + '<td>' + data[i].Description + '</td></tr>');
-    //                //alert(data[i].Name);
-    //            }
-    //        },
-
-    //        error: function (xhr) {
-    //            console.log("something went wrong!!!")
-    //        }
-    //    });
-    //});
 
     function refreshdata() {
         $.ajax({
@@ -93,10 +127,19 @@
             success: function (data) {
 
                 $("#mytblbody").empty();
-                for (var i = 0; i <= data.length; i++)
-                {
-                    $("#mytblbody").append('<tr><td>' + data[i].id + '</td><td>' + data[i].Name + '</td><td>' + data[i].Price + '</td><td>' + data[i].Quantity + '</td><td>' + data[i].Status + '</td><td>' + data[i].Description + '</td><td><button class="btn btn-danger" onclick="myFunctionDelete(this.id)" id="' + data[i].id + '"><i class="fa fa-trash"></i></button>|<button class="btn btn-info" onclick="myFunctionDelete(this.id)" id="' + data[i].id +'"><i class="fa fa-pencil"></i></button></td>`</tr>');
-                    //alert(data[i].Name);
+                for (var i = 0; i < data.length; i++) {
+                    $("#mytblbody").append('<tr>' +
+                        
+                        '<td>' + data[i].id + '</td>' +
+                        '<td>' + data[i].Name + '</td>' +
+                        '<td>' + data[i].Price + '</td>' +
+                        '<td>' + data[i].Quantity + '</td>' +
+                        '<td>' + data[i].Status + '</td>' +
+                        '<td>' + data[i].Description + '</td>' +
+                        '<td><button class="btn btn-danger" onclick="myFunctionDelete(this.id)" id="' + data[i].id + '">Delete</button>' +
+                        '&nbsp;&nbsp;<button class="btnSelect btn btn-info" data-toggle="modal" data-target="#myModal">Edit</button></td>' +
+                        '</tr>');
+                    
                 }
             },
 
@@ -105,13 +148,25 @@
             }
         });
     }
-
-
-    $("#Submitbtn").click(function ()
-    {
+    
+        // code to read selected table row cell data (values).
+        $("#myTable").on('click', '.btnSelect', function () {
+            var currentRow = $(this).closest("tr");
+            var col1 = currentRow.find("td:eq(0)").html();
+            debugger;
+            editid = currentRow.find("td:eq(0)").html();
+            $("#txtName").val(currentRow.find("td:eq(1)").html());
+            $("#txtPrice").val(currentRow.find("td:eq(2)").html());
+            $("#txtQuantity").val(currentRow.find("td:eq(3)").html());
+            $("#txtDescription").val(currentRow.find("td:eq(5)").html());
+            //var data = col1 + "\n" + col2 + "\n" + col3;
+            alert(editid);
+        });
+  
+    $("#Submitbtn").click(function () {
         $("#loader").show();
         //alert("button clicked");
-       
+
         //var product = new object();
         //product.Name = $("#Name").val();
         //product.Price = $("#Price").val();
@@ -167,9 +222,116 @@
         }
     }
 
+
+
+    $("#Updatebtn").click(function () {
+        $("#loader").show();
+        
+        debugger;
+        $.ajax({
+            url: '/api/data',
+            type: 'Put',
+            accept: 'application/json',
+         
+            data: {
+                id: editid,
+                Name: $("#txtName").val(),
+                Price: $("#txtPrice").val(),
+                Quantity: $("#txtQuantity").val(),
+                Description: $("#txtDescription").val()
+
+
+
+            },
+            success: function (data) {
+                alert("data updated succesfully!!");
+                refreshdata();
+                $("#loader").hide();
+            },
+            error: function (xhr) {
+                console.log("something went wrong!!!")
+            }
+
+        });
+
+    });
+
 </script>
 
 
 
 
+@*<html>
+<head>
+
+</head>
+<style>
+
+    #myTable td {
+        padding: 8px;
+    }
+
+
+    .btnSelect {
+        background-color: #f44336;
+        border: 2px solid #f44336;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+    }
+
+        .btnSelect:hover {
+            background-color: #c93326;
+            border: 2px solid #c93326;
+        }
+</style>
+<body>
+
+    <table border='1'>
+        <tr>
+            <th>Id</th>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Moto G</td>
+            <td>Moto G next generation smart phone</td>
+            <td><button class="btnSelect">Select</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Iphone SE</td>
+            <td>Iphone laucnhed new phone bosy of 5s with feature of 6s</td>
+            <td><button class="btnSelect">Select</button></td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>Sony z3</td>
+            <td>This is waterproof, well designed, etc</td>
+            <td><button class="btnSelect">Select</button></td>
+        </tr>
+
+        <tr>
+            <td>4</td>
+            <td>Moto X Play</td>
+            <td>Another class product from Moto G Family</td>
+            <td><button class="btnSelect">Select</button></td>
+        </tr>
+
+        <tr>
+            <td>5</td>
+            <td>Samsung S7</td>
+            <td>Best smart phone, nice UI etc.</td>
+            <td><button class="btnSelect">Select</button></td>
+        </tr>
+    </table>
+
+    <script>
+
+    </script>
+</body>
+</html>*@
 

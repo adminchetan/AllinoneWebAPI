@@ -23,26 +23,26 @@ namespace AllinOneAPI.Controllers
 
 
         //// GET api/values
-        //[Authorize]
+   
         public IEnumerable<ProductModel> Get()
      {
             IEnumerable<ProductModel> listProductModel = _iproductRepository.GetAllBooks();
             return listProductModel;
         }
-
-      public HttpResponseMessage Postdata(ProductModel productModel)
+     
+        public HttpResponseMessage Postdata(ProductModel productModel)
         {
             try
             {
-                ProductModel objProductmodel = new ProductModel()
-                {
-                    Name = productModel.Name,
-                    Price = productModel.Price,
-                    Quantity = productModel.Quantity,
-                    Status = true,
-                    Description = productModel.Description
-                };
-                int result = _iproductRepository.AddBook(objProductmodel);
+                //ProductModel objProductmodel = new ProductModel()
+                //{
+                //    Name = productModel.Name,
+                //    Price = productModel.Price,
+                //    Quantity = productModel.Quantity,
+                //    Status = true,
+                //    Description = productModel.Description
+                //};
+                int result = _iproductRepository.UpdateProductById(productModel);
                
 
                 var response = Request.CreateResponse(HttpStatusCode.Created);
@@ -58,7 +58,44 @@ namespace AllinOneAPI.Controllers
         
 
          
-        } public HttpResponseMessage Deletedata(ProductModel productModel)
+        }
+
+
+        public HttpResponseMessage PutProductById(ProductModel productModel)
+        {
+            try
+            {
+                //ProductModel objProductmodel = new ProductModel()
+                //{
+                //    Name = productModel.Name,
+                //    Price = productModel.Price,
+                //    Quantity = productModel.Quantity,
+                //    Status = true,
+                //    Description = productModel.Description
+                //};
+                int result = _iproductRepository.UpdateProductById(productModel);
+               
+
+                var response = Request.CreateResponse(HttpStatusCode.Created);
+
+                return response;
+            }
+
+            catch (Exception ex)
+            {
+                var response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "The Request not Successed");
+                return response;
+            }
+        
+
+         
+        }
+
+
+
+
+
+        public HttpResponseMessage Deletedata(ProductModel productModel)
         {
             try
             {

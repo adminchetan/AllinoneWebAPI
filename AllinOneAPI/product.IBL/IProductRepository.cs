@@ -15,6 +15,9 @@ namespace product.IBL
 
         int DeleteBook(ProductModel productModel);
 
+
+        int UpdateProductById(ProductModel productModel);
+
         ProductModel GetProductById(int id);
     }
 }
