@@ -4,6 +4,7 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="alert alert-success">
     <strong>Input Form!</strong> Please Fill The Data Below
 </div>
@@ -29,7 +30,12 @@
             </tr>
             <tr><td>
                 <input type="button" class="btn btn-success" value="Submit Data" id="Submitbtn"/>
-                </td>
+                </td>   
+                <tr style="background:#ffffff;">
+        <td>
+            <img src="~/Content/images/loading.gif" class="img-rounded" id="loader" alt="Cinque Terre" width="150px;" hidden>
+        </td>
+        </tr>
             </tr>
         </tbody>
     </table>
@@ -46,6 +52,7 @@
                 <th>Quantity</th>
                 <th>Status</th>
                 <th>Description</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody id="mytblbody"></tbody>
@@ -88,8 +95,7 @@
                 $("#mytblbody").empty();
                 for (var i = 0; i <= data.length; i++)
                 {
-
-                    $("#mytblbody").append('<tr><td>' + data[i].id + '</td><td>' + data[i].Name + '</td><td>' + data[i].Price + '</td><td>' + data[i].Quantity + '</td>' + '<td>' + data[i].Status + '</td><' + '<td>' + data[i].Description + '</td></tr>');
+                    $("#mytblbody").append('<tr><td>' + data[i].id + '</td><td>' + data[i].Name + '</td><td>' + data[i].Price + '</td><td>' + data[i].Quantity + '</td><td>' + data[i].Status + '</td><td>' + data[i].Description + '</td><td><button class="btn btn-danger" onclick="myFunctionDelete(this.id)" id="' + data[i].id + '"><i class="fa fa-trash"></i></button>|<button class="btn btn-info" onclick="myFunctionDelete(this.id)" id="' + data[i].id +'"><i class="fa fa-pencil"></i></button></td>`</tr>');
                     //alert(data[i].Name);
                 }
             },
@@ -103,6 +109,7 @@
 
     $("#Submitbtn").click(function ()
     {
+        $("#loader").show();
         //alert("button clicked");
        
         //var product = new object();
@@ -123,11 +130,14 @@
             success: function (data) {
                 //alert("data submitted succesfully!!");
                 refreshdata();
+                $("#loader").hide();
 
             },
 
             error: function (xhr) {
                 console.log("something went wrong!!!")
+                $("#loader").hide();
+
             }
 
 
@@ -137,9 +147,25 @@
 
 
     });
+    function myFunctionDelete(id) {
+        //alert("hi"+id);
+        if (confirm("Do you want to delete this Customer?")) {
+            $.ajax({
+                url: '/api/data',
+                type: 'delete',
+                accept: 'application/json',
+                data: { id: id },
+                success: function (data) {
+                    //alert("data submitted succesfully!!");
+                    refreshdata();
+                },
+                error: function (xhr) {
+                    console.log("something went wrong!!!")
+                }
 
-
-
+            });
+        }
+    }
 
 </script>
 

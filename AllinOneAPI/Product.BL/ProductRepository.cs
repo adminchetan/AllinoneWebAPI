@@ -38,6 +38,22 @@ namespace Product.BL
       
         }
 
+        public int DeleteBook (ProductModel productModel)
+        {
+            Data.Product objproduct = new Data.Product()
+            {
+                id = productModel.id
+            };
+
+            var i = (from pro in objuttaraon_neerajEntities.Products
+
+                     where pro.id == productModel.id
+                     select pro).FirstOrDefault();
+            objuttaraon_neerajEntities.Products.Remove(i);
+            return objuttaraon_neerajEntities.SaveChanges();
+
+        }
+
         public IEnumerable<ProductModel> GetAllBooks()
         {
 

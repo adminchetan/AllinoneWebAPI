@@ -13,6 +13,8 @@ namespace product.IBL
 
         int AddBook(ProductModel productModel);
 
+        int DeleteBook(ProductModel productModel);
+
         ProductModel GetProductById(int id);
     }
 }

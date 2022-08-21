@@ -22,7 +22,8 @@ namespace AllinOneAPI.Controllers
         }
 
 
-        // GET api/values
+        //// GET api/values
+        //[Authorize]
         public IEnumerable<ProductModel> Get()
      {
             IEnumerable<ProductModel> listProductModel = _iproductRepository.GetAllBooks();
@@ -45,6 +46,32 @@ namespace AllinOneAPI.Controllers
                
 
                 var response = Request.CreateResponse(HttpStatusCode.Created);
+
+                return response;
+            }
+
+            catch (Exception ex)
+            {
+                var response = Request.CreateErrorResponse(HttpStatusCode.NotFound, "The Request not Successed");
+                return response;
+            }
+        
+
+         
+        } public HttpResponseMessage Deletedata(ProductModel productModel)
+        {
+            try
+            {
+                ProductModel objProductmodel = new ProductModel()
+                {
+                    id = productModel.id,
+                  
+                };
+
+                int result = _iproductRepository.DeleteBook(objProductmodel);
+               
+
+                var response = Request.CreateResponse(HttpStatusCode.OK);
 
                 return response;
             }
